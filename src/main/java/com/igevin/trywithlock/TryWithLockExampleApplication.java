@@ -22,6 +22,7 @@ public class TryWithLockExampleApplication {
 		runner.resetVisitCounter().safeVisitCount2();
 		runner.resetVisitCounter().safeVisitCount3();
 		runner.resetVisitCounter().safeVisitCountWithCglib();
+		runner.resetVisitCounter().safeVisitCountWithDynamicProxy();
 
 		executor.shutdown();
 	}

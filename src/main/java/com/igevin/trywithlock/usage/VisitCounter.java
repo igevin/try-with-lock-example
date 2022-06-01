@@ -9,7 +9,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 @Getter
-public class VisitCounter {
+public class VisitCounter implements IVisitCounter {
     private long visits = 0;
     private final AtomicLong atomicVisits = new AtomicLong(0);
     private final Lock lock = new ReentrantLock();
@@ -17,6 +17,7 @@ public class VisitCounter {
 
     private final AutoReleaseLockHolder lockHolder = new AutoReleaseLockHolder(lock);
 
+    @Override
     public void visit() {
         visits++;
     }
