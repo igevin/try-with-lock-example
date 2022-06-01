@@ -1,8 +1,12 @@
 package com.igevin.trywithlock.usage;
 
+import com.igevin.trywithlock.proxy.CglibLockProxy;
+
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class ConcurrentTaskRunner {
     private final ExecutorService executor;
@@ -40,6 +44,15 @@ public class ConcurrentTaskRunner {
         concurrentVisit(total, current, visitCounter::visit);
     }
 
+    public void safeVisitCountWithCglib() throws InterruptedException {
+        long total = 20000;
+        int current = 10;
+        Lock lock = new ReentrantLock();
+        VisitCounter visitCounterProxy = CglibLockProxy.createAutoLockObject(VisitCounter.class, lock);
+        concurrentVisit(total, current, visitCounterProxy::visit);
+        System.out.println("actual visits: " + visitCounterProxy.getVisits());
+    }
+
     public void safeVisitCount() throws InterruptedException {
         long total = 20000;
         int current = 10;
@@ -62,7 +75,7 @@ public class ConcurrentTaskRunner {
         long total = 20000;
         int current = 10;
         concurrentVisit(total, current, visitCounter::atomicVisit);
-        System.out.println(visitCounter.getAtomicVisits().get());
+        System.out.println("actual visits: " + visitCounter.getAtomicVisits().get());
     }
 
 

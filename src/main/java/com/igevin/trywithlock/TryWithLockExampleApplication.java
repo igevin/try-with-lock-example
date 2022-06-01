@@ -17,10 +17,11 @@ public class TryWithLockExampleApplication {
 
 		runner.resetVisitCounter().oneThreadVisitCount();
 		runner.resetVisitCounter().unsafeVisitCount();
-//		runner.resetVisitCounter().atomicVisitCount();
+		runner.resetVisitCounter().atomicVisitCount();
 		runner.resetVisitCounter().safeVisitCount();
 		runner.resetVisitCounter().safeVisitCount2();
 		runner.resetVisitCounter().safeVisitCount3();
+		runner.resetVisitCounter().safeVisitCountWithCglib();
 
 		executor.shutdown();
 	}

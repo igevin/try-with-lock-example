@@ -27,7 +27,7 @@ public class CglibLockProxy {
         return (obj, method, args, proxy) -> {
             try {
                 lock.lock();
-                return proxy.invoke(obj, args);
+                return proxy.invokeSuper(obj, args);
             } finally {
                 lock.unlock();
             }
@@ -38,7 +38,7 @@ public class CglibLockProxy {
         return (obj, method, args, proxy) -> {
             try {
                 lock.lockInterruptibly();
-                return proxy.invoke(obj, args);
+                return proxy.invokeSuper(obj, args);
             } finally {
                 lock.unlock();
             }
