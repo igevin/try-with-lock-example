@@ -8,12 +8,13 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-@Getter
 public class VisitCounter implements IVisitCounter {
+    @Getter
     private long visits = 0;
+    @Getter
     private final AtomicLong atomicVisits = new AtomicLong(0);
     private final Lock lock = new ReentrantLock();
-    private final AutoCloseableLock autoCloseableLock = new AutoCloseableLock(lock);
+//    private final AutoCloseableLock autoCloseableLock = new AutoCloseableLock(lock);
 
     private final AutoReleaseLockHolder lockHolder = new AutoReleaseLockHolder(lock);
 
