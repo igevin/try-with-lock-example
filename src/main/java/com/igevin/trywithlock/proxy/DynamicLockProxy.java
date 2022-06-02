@@ -21,6 +21,18 @@ public class DynamicLockProxy {
         return createLockProxy(target, new AutoLockHandler(target));
     }
 
+    public Object createAutoLockProxy2(Object target) {
+        Class<?>[] interfaces = target.getClass().getInterfaces();
+        return Proxy.newProxyInstance(target.getClass().getClassLoader(), interfaces, (proxy, method, args) -> {
+            try {
+                lock.lock();
+                return method.invoke(target, args);
+            } finally {
+                lock.unlock();
+            }
+        });
+    }
+
     public Object createAutoLockWithInterruptiblyProxy(Object target) {
         return createLockProxy(target, new AutoLockWithInterruptiblyHandler(target));
     }

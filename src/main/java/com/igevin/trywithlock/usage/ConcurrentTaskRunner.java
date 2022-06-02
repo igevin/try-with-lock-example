@@ -48,7 +48,7 @@ public class ConcurrentTaskRunner {
     public void safeVisitCountWithDynamicProxy() throws InterruptedException {
         long total = 20000;
         int current = 10;
-        IVisitCounter visit = (IVisitCounter )new DynamicLockProxy(new ReentrantLock()).createAutoLockProxy(visitCounter);
+        IVisitCounter visit = (IVisitCounter )new DynamicLockProxy(new ReentrantLock()).createAutoLockProxy2(visitCounter);
         concurrentVisit(total, current, visit::visit);
         System.out.println("actual visits: " + visit.getVisits());
     }
